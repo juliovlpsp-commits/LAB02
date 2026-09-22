@@ -9,6 +9,7 @@ public class Aposta {
         Arrays.sort(this.numeros);
     }
 
+    //directory change
     public static Aposta gerarApostaAleatoria(int quantidade) {
         int[] aux = new int[quantidade];
         Random r = new Random();
