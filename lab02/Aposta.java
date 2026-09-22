@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Aposta {
@@ -5,6 +6,7 @@ public class Aposta {
 
     public Aposta(int[] numeros) {
         this.numeros = numeros;
+        Arrays.sort(this.numeros);
     }
 
     public static Aposta gerarApostaAleatoria(int quantidade) {
@@ -19,7 +21,6 @@ public class Aposta {
     public int[] getNumeros() {
         return numeros;
     }
-
 
     public String imprimeAposta(Cartela cartela) {
         StringBuilder retorno = new StringBuilder();
