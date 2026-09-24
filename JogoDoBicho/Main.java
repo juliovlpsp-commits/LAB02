@@ -7,9 +7,10 @@ public class Main {
         System.out.println(cartela.getBicho(1));
 
         Aposta apostaFixa = new Aposta(new int[]{1, 5, 5, 9, 6});
-        System.out.println(apostaFixa.imprimeAposta(cartela));
+        System.out.println("aposta fixa: " + apostaFixa.imprimeAposta(cartela));
 
         Aposta apostaAleatoria = Aposta.gerarApostaAleatoria(5);
-        System.out.println(apostaAleatoria.imprimeAposta(cartela));
+        System.out.println("aposta aleatoria: " + apostaAleatoria.imprimeAposta(cartela));
+
     }
 }

@@ -3,10 +3,10 @@ import java.util.Random;
 
 public class Aposta {
     private int[] numeros;
-
     public Aposta(int[] numeros) {
         this.numeros = numeros;
         Arrays.sort(this.numeros);
+
     }
 
     //directory change
