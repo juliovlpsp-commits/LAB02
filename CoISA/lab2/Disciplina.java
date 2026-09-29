@@ -1,3 +1,5 @@
+package lab2;
+
 import java.util.Arrays;
 
 public class Disciplina {
@@ -16,9 +18,7 @@ public class Disciplina {
     }
 
     public void cadastraNota(int nota, double valorNota) {
-        if (nota >= 1 && nota <= 4) {
-            this.notas[nota - 1] = valorNota;
-        }
+        this.notas[nota - 1] = valorNota;
     }
 
     private double calculaMedia() {
@@ -26,7 +26,7 @@ public class Disciplina {
         for (double n : this.notas) {
             soma += n;
         }
-        return soma / 4.0;
+        return soma / this.notas.length;
     }
 
     public boolean aprovado() {
