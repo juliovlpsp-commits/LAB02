@@ -26,7 +26,8 @@ public class RegistroResumos {
     public String[] pegaResumos() {
         String[] copia = new String[quantidade];
         for (int i = 0; i < quantidade; i++) {
-            copia[i] = resumos[i];
+            int idx = indiceReal(i);
+            copia[i] = resumos[idx];
         }
         return copia;
     }
@@ -40,7 +41,8 @@ public class RegistroResumos {
         sb.append("- ").append(quantidade).append(" resumo(s) cadastrado(s)\n");
         sb.append("- ");
         for (int i = 0; i < quantidade; i++) {
-            sb.append(temas[i]);
+            int idx = indiceReal(i);
+            sb.append(temas[idx]);
             if (i < quantidade - 1) {
                 sb.append(" | ");
             }
@@ -50,10 +52,18 @@ public class RegistroResumos {
 
     public boolean temResumo(String tema) {
         for (int i = 0; i < quantidade; i++) {
-            if (temas[i].equalsIgnoreCase(tema)) {
+            int idx = indiceReal(i);
+            if (temas[idx].equalsIgnoreCase(tema)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private int indiceReal(int posicaoLogica) {
+        if (quantidade < temas.length) {
+            return posicaoLogica;
+        }
+        return (proximaPosicao + posicaoLogica) % temas.length;
     }
 }
