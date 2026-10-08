@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * registro de resumos.
+ * registro de resumos
  */
 public class RegistroResumos {
     private Resumo[] resumos;
@@ -19,7 +19,9 @@ public class RegistroResumos {
     }
 
     /**
-     * adiciona resumo.
+     * adiciona resumo
+     * @param tema tema do resumo
+     * @param conteudo conteudo do resumo
      */
     public void adiciona(String tema, String conteudo) {
         if (temResumo(tema)) return;
@@ -76,7 +78,9 @@ public class RegistroResumos {
     }
 
     /**
-     * busca por conteudo.
+     * busca por conteudo
+     * @param chaveDeBusca palavra a buscar
+     * @return temas encontrados
      */
     public String[] busca(String chaveDeBusca) {
         if (chaveDeBusca == null || chaveDeBusca.isEmpty()) {
