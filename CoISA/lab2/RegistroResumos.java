@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Registro de resumos com capacidade fixa (buffer circular). Nao permite tema duplicado.
+ */
 public class RegistroResumos {
     private Resumo[] resumos;
     private int qtdResumos;
@@ -15,13 +18,21 @@ public class RegistroResumos {
         this.posAtual = 0;
     }
 
+    /**
+     * Adiciona resumo. Se tema ja existe, ignora. Se cheio, sobrescreve o mais antigo.
+     */
     public void adiciona(String tema, String conteudo) {
+        if (temResumo(tema)) return;
         Resumo resumo = new Resumo(tema, conteudo);
         this.resumos[this.posAtual] = resumo;
         this.posAtual = (this.posAtual + 1) % this.resumos.length;
         if (this.qtdResumos < this.resumos.length) {
             this.qtdResumos++;
         }
+    }
+
+    public void adicionaResumo(String tema, String conteudo) {
+        adiciona(tema, conteudo);
     }
 
     public String[] pegaResumos() {
@@ -35,6 +46,10 @@ public class RegistroResumos {
 
     public int conta() {
         return this.qtdResumos;
+    }
+
+    public int contaResumos() {
+        return conta();
     }
 
     public String imprimeResumos() {
@@ -60,6 +75,9 @@ public class RegistroResumos {
         return false;
     }
 
+    /**
+     * Busca temas cujo conteudo contem a chave (case-insensitive). Retorna ordenado.
+     */
     public String[] busca(String chaveDeBusca) {
         if (chaveDeBusca == null || chaveDeBusca.isEmpty()) {
             return new String[0];

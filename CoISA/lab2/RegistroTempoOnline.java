@@ -1,5 +1,8 @@
 package lab2;
 
+/**
+ * Registra tempo online dedicado a uma disciplina. Meta padrao 120h.
+ */
 public class RegistroTempoOnline {
     private static final int META_PADRAO = 120;
 
@@ -17,6 +20,9 @@ public class RegistroTempoOnline {
         this.tempoOnlineGasto = 0;
     }
 
+    /**
+     * Adiciona tempo online. Ignora valores negativos.
+     */
     public void adicionaTempoOnline(int tempo) {
         if (tempo < 0) return;
         this.tempoOnlineGasto += tempo;

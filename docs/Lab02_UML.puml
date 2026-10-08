@@ -1,0 +1,93 @@
+@startuml CoISA Lab02
+' Gerado para entrega Lab02 - Etapas 2 e 4 (UFCG)
+' Renderize em https://plantuml.com/plantuml ou exporte para png
+left to right direction
+skinparam classAttributeIconSize 0
+
+class Descanso {
+  - horasDescanso : int
+  - numeroSemanas : int
+  + Descanso()
+  + defineHorasDescanso(valor: int) : void
+  + defineNumeroSemanas(valor: int) : void
+  + getStatusGeral() : String
+}
+
+class RegistroTempoOnline {
+  - nomeDisciplina : String
+  - tempoOnlineEsperado : int
+  - tempoOnlineGasto : int
+  + RegistroTempoOnline(nomeDisciplina: String)
+  + RegistroTempoOnline(nomeDisciplina: String, tempoOnlineEsperado: int)
+  + adicionaTempoOnline(tempo: int) : void
+  + atingiuMetaTempoOnline() : boolean
+  + toString() : String
+}
+
+class Disciplina {
+  - nomeDisciplina : String
+  - horas : int
+  - notas : double[]
+  - pesos : int[]
+  + Disciplina(nomeDisciplina: String)
+  + Disciplina(nomeDisciplina: String, numNotas: int)
+  + Disciplina(nomeDisciplina: String, numNotas: int, pesos: int[])
+  + cadastraHoras(horas: int) : void
+  + cadastraNota(nota: int, valorNota: double) : void
+  - calculaMedia() : double
+  + aprovado() : boolean
+  + toString() : String
+}
+
+class Resumo {
+  - tema : String
+  - conteudo : String
+  + Resumo(tema: String, conteudo: String)
+  + getTema() : String
+  + getConteudo() : String
+  + toString() : String
+}
+
+class RegistroResumos {
+  - resumos : Resumo[]
+  - qtdResumos : int
+  - posAtual : int
+  + RegistroResumos(numeroDeResumos: int)
+  + adiciona(tema: String, conteudo: String) : void
+  + adicionaResumo(tema: String, conteudo: String) : void
+  + pegaResumos() : String[]
+  + conta() : int
+  + contaResumos() : int
+  + imprimeResumos() : String
+  + temResumo(tema: String) : boolean
+  + busca(chaveDeBusca: String) : String[]
+}
+
+class CoISA {
+  + main(args: String[]) : void
+  + registrarDescanso() : void
+  - registrarTempoOnline() : void
+  - controlarDisciplina() : void
+  - registrarResumos() : void
+}
+
+RegistroResumos "1" *-- "0..*" Resumo : contém >
+CoISA ..> Descanso : usa
+CoISA ..> RegistroTempoOnline : usa
+CoISA ..> Disciplina : usa
+CoISA ..> RegistroResumos : usa
+
+note right of RegistroResumos
+  Buffer circular: ao encher
+  sobrescreve o mais antigo.
+  Tema duplicado é ignorado.
+  busca() é case-insensitive
+  e retorna ordenado.
+end note
+
+note right of Disciplina
+  Etapa 4: média ponderada
+  se pesos != null
+  senão média aritmética
+end note
+@enduml
