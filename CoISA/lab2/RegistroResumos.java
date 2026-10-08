@@ -88,7 +88,7 @@ public class RegistroResumos {
         }
         Collections.sort(temasEncontrados);
         return temasEncontrados.toArray(new String[0]);
-   }
+    }
 
     private int indiceReal(int posicaoLogica) {
         if (qtdResumos < resumos.length) {

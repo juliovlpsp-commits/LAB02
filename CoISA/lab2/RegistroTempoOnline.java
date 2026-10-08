@@ -1,7 +1,7 @@
 package lab2;
 
 /**
- * Registra tempo online dedicado a uma disciplina. Meta padrao 120h.
+ * registra o tempo online da disciplina
  */
 public class RegistroTempoOnline {
     private static final int META_PADRAO = 120;
