@@ -1,6 +1,8 @@
 # Project exclude paths
-/out/token
-token.txt
+/out/
+*.class
 token
 token.txt
-token.txt
+/out/token
+.idea/
+*.iml

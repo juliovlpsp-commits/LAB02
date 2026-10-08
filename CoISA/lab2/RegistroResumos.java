@@ -27,7 +27,8 @@ public class RegistroResumos {
     public String[] pegaResumos() {
         String[] resultado = new String[this.qtdResumos];
         for (int i = 0; i < this.qtdResumos; i++) {
-            resultado[i] = this.resumos[i].toString();
+            int idx = indiceReal(i);
+            resultado[i] = this.resumos[idx].toString();
         }
         return resultado;
     }
@@ -40,7 +41,8 @@ public class RegistroResumos {
         StringBuilder sb = new StringBuilder();
         sb.append("- ").append(conta()).append(" resumo(s) cadastrado(s)\n- ");
         for (int i = 0; i < this.qtdResumos; i++) {
-            sb.append(this.resumos[i].getTema());
+            int idx = indiceReal(i);
+            sb.append(this.resumos[idx].getTema());
             if (i < this.qtdResumos - 1) {
                 sb.append(" | ");
             }
@@ -50,7 +52,8 @@ public class RegistroResumos {
 
     public boolean temResumo(String tema) {
         for (int i = 0; i < this.qtdResumos; i++) {
-            if (this.resumos[i].getTema().equalsIgnoreCase(tema)) {
+            int idx = indiceReal(i);
+            if (this.resumos[idx].getTema().equalsIgnoreCase(tema)) {
                 return true;
             }
         }
@@ -64,11 +67,19 @@ public class RegistroResumos {
         String chaveLower = chaveDeBusca.toLowerCase();
         List<String> temasEncontrados = new ArrayList<>();
         for (int i = 0; i < this.qtdResumos; i++) {
-            if (this.resumos[i] != null && this.resumos[i].getConteudo().toLowerCase().contains(chaveLower)) {
-                temasEncontrados.add(this.resumos[i].getTema());
+            int idx = indiceReal(i);
+            if (this.resumos[idx] != null && this.resumos[idx].getConteudo().toLowerCase().contains(chaveLower)) {
+                temasEncontrados.add(this.resumos[idx].getTema());
             }
         }
         Collections.sort(temasEncontrados);
         return temasEncontrados.toArray(new String[0]);
+    }
+
+    private int indiceReal(int posicaoLogica) {
+        if (qtdResumos < resumos.length) {
+            return posicaoLogica;
+        }
+        return (posAtual + posicaoLogica) % resumos.length;
     }
 }

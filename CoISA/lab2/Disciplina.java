@@ -3,6 +3,8 @@ package lab2;
 import java.util.Arrays;
 
 public class Disciplina {
+    private static final double MEDIA_APROVACAO = 7.0;
+
     private String nomeDisciplina;
     private int horas;
     private double[] notas;
@@ -20,14 +22,21 @@ public class Disciplina {
         this.nomeDisciplina = nomeDisciplina;
         this.horas = 0;
         this.notas = new double[numNotas];
-        this.pesos = pesos;
+        if (pesos != null && pesos.length == numNotas) {
+            this.pesos = Arrays.copyOf(pesos, pesos.length);
+        } else {
+            this.pesos = null;
+        }
     }
 
     public void cadastraHoras(int horas) {
+        if (horas < 0) return;
         this.horas += horas;
     }
 
     public void cadastraNota(int nota, double valorNota) {
+        if (nota < 1 || nota > this.notas.length) return;
+        if (valorNota < 0 || valorNota > 10) return;
         this.notas[nota - 1] = valorNota;
     }
 
@@ -49,7 +58,7 @@ public class Disciplina {
     }
 
     public boolean aprovado() {
-        return calculaMedia() >= 7.0;
+        return calculaMedia() >= MEDIA_APROVACAO;
     }
 
     @Override
