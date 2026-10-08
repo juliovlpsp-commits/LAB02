@@ -3,44 +3,57 @@ package lab2;
 import java.util.Arrays;
 
 public class Disciplina {
-    private static final double MEDIA_APROVACAO = 7.0;
-    private static final int QTD_NOTAS = 4;
-
     private String nomeDisciplina;
-    private int horasEstudo;
+    private int horas;
     private double[] notas;
+    private int[] pesos;
 
     public Disciplina(String nomeDisciplina) {
+        this(nomeDisciplina, 4);
+    }
+
+    public Disciplina(String nomeDisciplina, int numNotas) {
+        this(nomeDisciplina, numNotas, null);
+    }
+
+    public Disciplina(String nomeDisciplina, int numNotas, int[] pesos) {
         this.nomeDisciplina = nomeDisciplina;
-        this.horasEstudo = 0;
-        this.notas = new double[QTD_NOTAS];
+        this.horas = 0;
+        this.notas = new double[numNotas];
+        this.pesos = pesos;
     }
 
     public void cadastraHoras(int horas) {
-        if (horas < 0) return;
-        this.horasEstudo += horas;
+        this.horas += horas;
     }
 
     public void cadastraNota(int nota, double valorNota) {
-        if (nota < 1 || nota > QTD_NOTAS) return;
-        if (valorNota < 0 || valorNota > 10) return;
         this.notas[nota - 1] = valorNota;
     }
 
     private double calculaMedia() {
-        double soma = 0;
-        for (double n : this.notas) {
-            soma += n;
+        double soma = 0.0;
+        if (this.pesos == null) {
+            for (double nota : this.notas) {
+                soma += nota;
+            }
+            return soma / this.notas.length;
+        } else {
+            int somaPesos = 0;
+            for (int i = 0; i < this.notas.length; i++) {
+                soma += this.notas[i] * this.pesos[i];
+                somaPesos += this.pesos[i];
+            }
+            return somaPesos > 0 ? soma / somaPesos : 0.0;
         }
-        return soma / this.notas.length;
     }
 
     public boolean aprovado() {
-        return calculaMedia() >= MEDIA_APROVACAO;
+        return calculaMedia() >= 7.0;
     }
 
     @Override
     public String toString() {
-        return String.format("%s %d %.1f %s", this.nomeDisciplina, this.horasEstudo, calculaMedia(), Arrays.toString(this.notas));
+        return this.nomeDisciplina + " " + this.horas + " " + calculaMedia() + " " + Arrays.toString(this.notas);
     }
 }

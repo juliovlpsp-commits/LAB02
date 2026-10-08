@@ -1,49 +1,47 @@
 package lab2;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class RegistroResumos {
-    private String[] temas;
-    private String[] resumos;
-    private int quantidade;
-    private int proximaPosicao;
+    private Resumo[] resumos;
+    private int qtdResumos;
+    private int posAtual;
 
     public RegistroResumos(int numeroDeResumos) {
-        this.temas = new String[numeroDeResumos];
-        this.resumos = new String[numeroDeResumos];
-        this.quantidade = 0;
-        this.proximaPosicao = 0;
+        this.resumos = new Resumo[numeroDeResumos];
+        this.qtdResumos = 0;
+        this.posAtual = 0;
     }
 
-    public void adiciona(String tema, String resumo) {
-        this.temas[proximaPosicao] = tema;
-        this.resumos[proximaPosicao] = tema + ": " + resumo;
-
-        if (quantidade < temas.length) {
-            quantidade++;
+    public void adiciona(String tema, String conteudo) {
+        Resumo resumo = new Resumo(tema, conteudo);
+        this.resumos[this.posAtual] = resumo;
+        this.posAtual = (this.posAtual + 1) % this.resumos.length;
+        if (this.qtdResumos < this.resumos.length) {
+            this.qtdResumos++;
         }
-        proximaPosicao = (proximaPosicao + 1) % temas.length;
     }
 
     public String[] pegaResumos() {
-        String[] copia = new String[quantidade];
-        for (int i = 0; i < quantidade; i++) {
-            int idx = indiceReal(i);
-            copia[i] = resumos[idx];
+        String[] resultado = new String[this.qtdResumos];
+        for (int i = 0; i < this.qtdResumos; i++) {
+            resultado[i] = this.resumos[i].toString();
         }
-        return copia;
+        return resultado;
     }
 
     public int conta() {
-        return this.quantidade;
+        return this.qtdResumos;
     }
 
     public String imprimeResumos() {
         StringBuilder sb = new StringBuilder();
-        sb.append("- ").append(quantidade).append(" resumo(s) cadastrado(s)\n");
-        sb.append("- ");
-        for (int i = 0; i < quantidade; i++) {
-            int idx = indiceReal(i);
-            sb.append(temas[idx]);
-            if (i < quantidade - 1) {
+        sb.append("- ").append(conta()).append(" resumo(s) cadastrado(s)\n- ");
+        for (int i = 0; i < this.qtdResumos; i++) {
+            sb.append(this.resumos[i].getTema());
+            if (i < this.qtdResumos - 1) {
                 sb.append(" | ");
             }
         }
@@ -51,19 +49,26 @@ public class RegistroResumos {
     }
 
     public boolean temResumo(String tema) {
-        for (int i = 0; i < quantidade; i++) {
-            int idx = indiceReal(i);
-            if (temas[idx].equalsIgnoreCase(tema)) {
+        for (int i = 0; i < this.qtdResumos; i++) {
+            if (this.resumos[i].getTema().equalsIgnoreCase(tema)) {
                 return true;
             }
         }
         return false;
     }
 
-    private int indiceReal(int posicaoLogica) {
-        if (quantidade < temas.length) {
-            return posicaoLogica;
+    public String[] busca(String chaveDeBusca) {
+        if (chaveDeBusca == null || chaveDeBusca.isEmpty()) {
+            return new String[0];
         }
-        return (proximaPosicao + posicaoLogica) % temas.length;
+        String chaveLower = chaveDeBusca.toLowerCase();
+        List<String> temasEncontrados = new ArrayList<>();
+        for (int i = 0; i < this.qtdResumos; i++) {
+            if (this.resumos[i] != null && this.resumos[i].getConteudo().toLowerCase().contains(chaveLower)) {
+                temasEncontrados.add(this.resumos[i].getTema());
+            }
+        }
+        Collections.sort(temasEncontrados);
+        return temasEncontrados.toArray(new String[0]);
     }
 }

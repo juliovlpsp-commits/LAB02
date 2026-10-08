@@ -1,14 +1,12 @@
 package lab2;
 
 public class RegistroTempoOnline {
-    private static final int META_PADRAO = 120;
-
     private String nomeDisciplina;
     private int tempoOnlineEsperado;
     private int tempoOnlineGasto;
 
     public RegistroTempoOnline(String nomeDisciplina) {
-        this(nomeDisciplina, META_PADRAO);
+        this(nomeDisciplina, 120);
     }
 
     public RegistroTempoOnline(String nomeDisciplina, int tempoOnlineEsperado) {
@@ -18,7 +16,6 @@ public class RegistroTempoOnline {
     }
 
     public void adicionaTempoOnline(int tempo) {
-        if (tempo < 0) return;
         this.tempoOnlineGasto += tempo;
     }
 
