@@ -1,7 +1,7 @@
 package lab2;
 
 /**
- * Controla rotina de descanso. Descansado se media horas/semana >= 26.
+ * descanso do aluno.
  */
 public class Descanso {
     private static final int HORAS_MINIMAS_DESCANSADO = 26;
@@ -15,8 +15,7 @@ public class Descanso {
     }
 
     /**
-     * Define total de horas de descanso.
-     * @param valor total de horas (ignora negativos)
+     * define horas de descanso.
      */
     public void defineHorasDescanso(int valor) {
         if (valor < 0) return;
@@ -24,8 +23,7 @@ public class Descanso {
     }
 
     /**
-     * Define numero de semanas.
-     * @param valor numero de semanas (ignora negativos)
+     * define numero de semanas.
      */
     public void defineNumeroSemanas(int valor) {
         if (valor < 0) return;
@@ -33,7 +31,7 @@ public class Descanso {
     }
 
     /**
-     * Retorna "descansado" se media >= 26, senao "cansado".
+     * verifica se esta descansado.
      */
     public String getStatusGeral() {
         if (this.numeroSemanas > 0 && ((double) this.horasDescanso / this.numeroSemanas) >= HORAS_MINIMAS_DESCANSADO) {

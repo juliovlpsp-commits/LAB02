@@ -3,7 +3,7 @@ package lab2;
 import java.util.Arrays;
 
 /**
- * Representa disciplina com horas e notas. Aprovado se media >= 7.0.
+ * disciplina com notas e horas.
  */
 public class Disciplina {
     private static final double MEDIA_APROVACAO = 7.0;
@@ -22,8 +22,7 @@ public class Disciplina {
     }
 
     /**
-     * Cria disciplina com pesos para media ponderada.
-     * @param pesos array com peso de cada nota (mesmo tamanho de numNotas)
+     * cria disciplina com pesos.
      */
     public Disciplina(String nomeDisciplina, int numNotas, int[] pesos) {
         this.nomeDisciplina = nomeDisciplina;
@@ -37,7 +36,7 @@ public class Disciplina {
     }
 
     /**
-     * Cadastra horas cumulativas. Ignora negativos.
+     * cadastra horas.
      */
     public void cadastraHoras(int horas) {
         if (horas < 0) return;
@@ -45,7 +44,7 @@ public class Disciplina {
     }
 
     /**
-     * Cadastra nota 1..N com valor 0..10. Ignora valores invalidos.
+     * cadastra nota.
      */
     public void cadastraNota(int nota, double valorNota) {
         if (nota < 1 || nota > this.notas.length) return;

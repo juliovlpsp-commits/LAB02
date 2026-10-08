@@ -1,7 +1,7 @@
 package lab2;
 
 /**
- * registra o tempo online da disciplina
+ * tempo online da disciplina.
  */
 public class RegistroTempoOnline {
     private static final int META_PADRAO = 120;
@@ -21,7 +21,7 @@ public class RegistroTempoOnline {
     }
 
     /**
-     * Adiciona tempo online. Ignora valores negativos.
+     * adiciona tempo online.
      */
     public void adicionaTempoOnline(int tempo) {
         if (tempo < 0) return;
