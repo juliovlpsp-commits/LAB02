@@ -1,2 +1,6 @@
 # Project exclude paths
-/out/
+/out/token
+token.txt
+token
+token.txt
+token.txt
